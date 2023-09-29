@@ -16,7 +16,7 @@ function ReviewsPage() {
               height="180"
               className="rounded-t"
             />
-            <h2 className="py-1 text-center">Hollow-knight</h2>
+            <h2 className="py-1 font-orbitron font-semibold text-center">Hollow-knight</h2>
           </Link>
         </li>
         <li className="bg-white border w-80 rounded shadow hover:shadow-xl">
@@ -28,7 +28,7 @@ function ReviewsPage() {
               height="180"
               className="rounded-t"
             />
-            <h2 className="py-1 text-center">Stardew-valley</h2>
+            <h2 className="py-1 font-orbitron font-semibold text-center">Stardew-valley</h2>
           </Link>
         </li>
       </ul>

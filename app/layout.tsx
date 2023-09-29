@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import './globals.css';
 import NavBar from '../components/NavBar';
+import { exo2, orbitron } from './font';
 
 interface LayoutProps {
   children: ReactNode;
@@ -9,7 +10,7 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${exo2.variable} ${orbitron.variable}`}>
       <body className='bg-orange-50 flex flex-col px-4 py-2 min-h-screen'>
         <header>
          <NavBar/>
