@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import './globals.css';
@@ -7,7 +8,12 @@ import { exo2, orbitron } from './font';
 interface LayoutProps {
   children: ReactNode;
 }
-
+export const metadata: Metadata = {
+  title: {
+    default: 'Indie Gamer',
+    template: '%s | Indie Gamer',
+  },
+};
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en" className={`${exo2.variable} ${orbitron.variable}`}>
