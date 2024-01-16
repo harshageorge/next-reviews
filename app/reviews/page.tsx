@@ -4,6 +4,8 @@ import { getReviews } from "@/lib/reviews";
 
 async function ReviewsPage() {
   const reviews = await getReviews();
+  console.log('Reviews page', reviews);
+  
 return (
     <>
       <Heading>Reviews</Heading>
