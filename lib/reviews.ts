@@ -1,5 +1,4 @@
 import { readdir, readFile } from 'node:fs/promises';
-import matter from 'gray-matter';
 import { marked } from 'marked';
 import qs from 'qs';
 
@@ -21,10 +20,32 @@ return reviews[0];
 }
 
 export async function getReview(slug: string): Promise<Review> {
-  const text = await readFile(`./content/reviews/${slug}.md`, 'utf8');
-  const { content, data: { title, date, image } } = matter(text);
-  const body = marked(content);
-  return { slug,title, date, image, body };
+  // const text = await readFile(`./content/reviews/${slug}.md`, 'utf8');
+  // const { content, data: { title, date, image } } = matter(text);
+  // const body = marked(content);
+  // return { slug,title, date, image, body };
+  const url = `${CMS_URL}/api/reviews?` + qs.stringify({
+    filters:{slug:{$eq:slug}},
+    fields: ['slug', 'title', 'subtitle', 'publishedAt','body'],
+    populate: { image: { fields: ['url'] } },
+  
+  pagination: { pageSize: 1, withCount:false },
+  }, { encodeValuesOnly: true });
+  console.log('getReview:', url);
+  
+  const response = await fetch(url);
+  const { data } = await response.json();
+  const attributes = data[0];
+  console.log(attributes.attributes);
+  
+  
+  return {
+    slug: attributes.attributes.slug,
+    title: attributes.attributes.title,
+    date: attributes.attributes.publishedAt,
+    image: CMS_URL + attributes.attributes.image.data.attributes.url,
+    body: marked(attributes.attributes.body)
+  }
 }
 
 export async function getReviews(): Promise<Review[]> {
@@ -36,6 +57,8 @@ export async function getReviews(): Promise<Review[]> {
   }, { encodeValuesOnly: true });
   const response = await fetch(url);
   const { data } = await response.json();
+  console.log(data);
+  
   return data.map(({ attributes }) => ({
     slug: attributes.slug,
     title: attributes.title,

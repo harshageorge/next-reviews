@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Heading from "@/components/Heading";
 import { getReview, getSlugs } from '@/lib/reviews';
 import ShareLinkButton from '@/components/ShareLinkButton';
+import { log } from 'console';
 
 interface ReviewPageParams {
   slug: string;
@@ -27,6 +28,7 @@ export async function generateMetadata({ params: { slug } }: ReviewPageProps): P
 export default async function ReviewPage({ params: { slug } }: ReviewPageProps){
 
   const review = await getReview(slug);
+console.log('Review page', review);
 
   
     return (
